@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Book Page
+{% endblock %}
+
+{% block main %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+              <!-- Book details -->
+              <div class="row">
+                <div class="col-4">
+                  <img src={{ cover }}>
+                </div>
+                <div class="col-8">
+                  <h3 class="card-title">{{ book.title }} by {{ book.author}} </h3>
+                  <ul id="bookDetails">
+                    <li>ISBN-10: {{ book.isbn }}</li>
+                    <li>Average rating: {{ average_rating }}</li>
+                    <li>Number of ratings: {{ ratings_count }}</li>
+                  </ul>
+                  <br>
+                </div>
+              </div>
+              <br>
+              <hr>
+              <br>
+              <!-- Leave a review -->
+              {% if not reviewed %}
+                <div class="row">
+                  <div align="center" class="col-md-12">
+                      <h3 style="text-align:center;">Have you read this book?  What did you think?</h3>
+                      <form action="{{ url_for('bookpage', book_id=book.id) }}" method="post">
+                        <div class="form-group">
+                          <div class="form-check form-check-inline">
+                            <input type="radio" name="user_rating" value="1" id="1"> 1
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input type="radio" name="user_rating" value="2" id="2"> 2
+                          </div>      
+                          <div class="form-check form-check-inline">
+                            <input type="radio" name="user_rating" value="3" id="3"> 3
+                          </div>      
+                          <div class="form-check form-check-inline">
+                            <input type="radio" name="user_rating" value="4" id="4"> 4
+                          </div>      
+                          <div class="form-check form-check-inline">
+                            <input type="radio" name="user_rating" value="5" id="5"> 5
+                          </div>
+                        </div>
+                        <div style="align: center" class="form-label-group">
+                          <textarea placeholder="Leave your comments here." name="user_review" class="form-control" id="inputReview" rows="3"></textarea>
+                          <label for="inputReview">Comments</label>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Submit</button>
+                      </form>
+                  </div>
+                </div>
+              <br>
+              <hr>
+              <br>
+              {% endif %}
+              <!-- Local reviews -->
+              <div class="row">
+                <div class="col-md-12">
+                      {% if reviews %}
+                        <h3 style="text-align:center;">What on Rating Rainbow are saying...</h3>
+                        {% for review in reviews %}
+                          <h5 style="text-align:center;" class="font-weight-light mb-0">"{{ review.comment }}"</h5>
+                        {% endfor %}
+                      {% else %}
+                        <h5 style="text-align:center;">No reviews left yet.  Be the first!</h5>
+                      {% endif %}
+                  <br>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
