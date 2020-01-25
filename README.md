@@ -7,7 +7,7 @@
 
 ## Preview
 
-[![Landing Page Preview](rating-rainbow.png)]
+![Landing Page Preview](rating-rainbow.png)
 
 ## Description
 
